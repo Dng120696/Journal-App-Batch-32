@@ -1,0 +1,57 @@
+<h1 class="text-2xl font-bold mb-4">Tasks Today</h1>
+<table class="border-collapse w-full mb-4">
+  <thead>
+    <tr>
+      <th class="border border-gray-400 px-4 py-2">Title</th>
+      <th class="border border-gray-400 px-4 py-2">Description</th>
+      <th class="border border-gray-400 px-4 py-2">Due Date</th>
+      <th class="border border-gray-400 px-4 py-2">Completed</th>
+      <th class="border border-gray-400 px-4 py-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody class='text-center'>
+    <% if @tasks.any? %>
+      <% @tasks.order(:id).each do |task| %>
+        <tr>
+          <td class="border border-gray-400 px-4 py-2">
+            <span class="<%= task.is_completed ? 'line-through text-gray-400' : '' %>">
+              <%= task.title %>
+            </span>
+          </td>
+          <td class="border border-gray-400 px-4 py-2">
+            <span class="<%= task.is_completed ? 'line-through text-gray-400' : '' %>">
+              <%= task.description %>
+            </span>
+          </td>
+          <td class="border border-gray-400 px-4 py-2"><%= task.due_date %></td>
+          <td class="border border-gray-400 px-4 py-2 ">
+            <%= form_with model: task, method: :patch, url: today_task_completed_category_task_path(task.category, task) do |f| %>
+              <div class="flex items-center justify-center">
+                <%= f.check_box :is_completed, onchange: "this.form.submit()", class: 'w-5 h-5' %>
+                <%= f.submit '', class: 'hidden' %>
+                <label for="<%= f.object_name %>_is_completed" class="ml-2 text-sm text-gray-400">Completed</label>
+              </div>
+            <% end %>
+          </td>
+          <td class="border border-gray-400 px-4 py-2 ">
+            <div class='flex items-center justify-center text-gray-400'>
+              <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+              <%= link_to 'Show', category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+              <%= button_to 'Delete', delete_task_today_category_task_path(task.category, task), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this task?' }, class: 'hover:text-gray-600 hover:underline' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan ='5' class="border border-gray-400 px-4 py-2 text-sm text-gray-400 h-[40vh]">
+          No Task for this Category
+        </td>
+        <td colspan="4"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p class='self-start'>
+  <%= link_to 'Back to Categories', categories_path, class: 'bg-gray-200 text-gray-600 text-sm font-bold py-2 px-4 rounded-md' %>
+</p>

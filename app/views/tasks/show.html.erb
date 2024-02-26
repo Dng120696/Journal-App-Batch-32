@@ -1,0 +1,31 @@
+<section class = 'shadow-[0_0_1rem_5px_rgba(0,0,0,0.15)] rounded-sm w-[clamp(300px,90%,500px)] px-6 py-8 '>
+  <h1 class = 'text-3xl font-bold mb-2'>Task Details </h1>
+    <p  class = 'mb-2'>
+      <strong>Task Name: </strong>
+      <span class = 'text-gray-500 text-md'>
+      <%= @task.title %>
+      </span>
+      </p>
+    <p  class = 'mb-2'>
+      <strong>Created At: </strong>
+      <span class = 'text-gray-500 text-md'>
+      <%= @task.created_at.strftime("%B %d, %Y %H:%M %p") %>
+      </span>
+      </p>
+    <p  class = 'mb-2'>
+      <strong>Updated At: </strong>
+      <span class = 'text-gray-500 text-md'>
+      <%= @task.updated_at.strftime("%B %d, %Y %H:%M %p") %>
+      </span>
+    </p>
+  <div class = 'flex items-center justify-between'>
+    <div>
+      <%= link_to 'Back to Categories', categories_path, class: 'text-sm py-2 px-4 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800' %>
+      </div>
+    <div class = 'flex items-center justify-between gap-4'>
+      <%= link_to 'Edit', edit_category_task_path(@task.category,@task),  class: 'text-sm py-2 px-4 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800' %>
+      <%= button_to "Delete Task", category_task_path(@task.category,@task), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'text-sm py-2 px-4 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800' %>
+    </div>
+  </div>
+
+</section>

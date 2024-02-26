@@ -1,0 +1,35 @@
+<section class = 'shadow-[0_0_1rem_5px_rgba(0,0,0,0.15)] w-[clamp(300px,90%,400px)] px-6 py-8 '>
+  <h1 class="' text-3xl text-center font-bold mb-4 ">Task Form</h1>
+  <%= render 'shared/error-messages',obj: @task%>
+<%= form_with(model: [@category, @task], local: true, data: { turbo: false }) do |f| %>
+  <p>
+    <span>
+      <%= f.label :title, "Title",class: 'text-md font-semibold mb-2' %>
+    </span>
+    <span>
+      <%= f.text_field :title, placeholder: 'Enter title',class: 'w-full border-[1px] border-gray-300 mb-2' %>
+    </span>
+  </p>
+    <p '>
+    <%= f.label :description,class: 'text-md font-semibold mb-2' %>
+    <%= f.text_area :description,class: 'w-full border-[1px] border-gray-300 mb-2' %>
+  </p>
+
+  <p >
+    <%= f.label :due_date,class: 'text-md font-semibold mb-2' %>
+    <%= f.date_field :due_date ,class: 'w-full border-[1px] border-gray-300 mb-2'%>
+  </p>
+  <p class = 'mb-4'>
+    <%= f.label :is_completed ,'Is_Completed',class: 'font-semibold text-md ' %>
+    <%= f.check_box :is_completed,class: 'ml-2 '%>
+  </p>
+  <p class="mt-2 flex items-center justify-between">
+    <span>
+      <%= f.submit @category.new_record? || @task.new_record? ? 'Create' : 'Update', class: 'text-md py-2 px-8 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800'%>
+    </span>
+    <span>
+      <%= link_to 'Cancel', categories_path , class: 'text-md py-2 px-8 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800' %>
+    </span>
+  </p>
+<% end %>
+</section>
