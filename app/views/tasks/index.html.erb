@@ -23,7 +23,11 @@
               <%= task.description %>
             </span>
           </td>
-          <td class="border border-gray-400 px-4 py-2"><%= task.due_date %></td>
+          <td class="border border-gray-400 px-4 py-2">
+          <span class="<%= task.is_completed ? 'line-through text-gray-400' : '' %>">
+          <%= task.due_date.strftime("%B %d, %Y ") %>
+        </span>
+        </td>
           <td class="border border-gray-400 px-4 py-2 ">
             <%= form_with model: task, method: :patch, url: toggle_task_completed_category_task_path(task.category, task) do |f| %>
               <div class="flex items-center justify-center">
@@ -35,8 +39,8 @@
           </td>
           <td class="border border-gray-400 px-4 py-2 ">
             <div class='flex items-center justify-center text-gray-400'>
-              <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
-              <%= link_to 'Show', category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+            <%= link_to 'Show', category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+            <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
               <%= button_to 'Delete', delete_task_today_category_task_path(task.category, task), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this task?' }, class: 'hover:text-gray-600 hover:underline' %>
             </div>
           </td>

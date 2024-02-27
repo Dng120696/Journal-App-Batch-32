@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "categories#index"
+  root "categories#index"
   get 'pages/user'
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     delete 'delete_all_tasks', on: :member
   end
 
-  get 'tasks/today', to: 'tasks#today'
+  get '/tasks/today', to: 'tasks#today'
+  get 'tasks/today/active', to: 'tasks#active', as: 'today_active'
+  get 'tasks/today/completed', to: 'tasks#completed', as: 'today_completed'
+  delete 'tasks/today/clear_completed', to: 'tasks#clear_completed', as: 'today_clear_completed'
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

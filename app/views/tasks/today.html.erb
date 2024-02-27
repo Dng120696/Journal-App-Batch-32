@@ -23,7 +23,11 @@
               <%= task.description %>
             </span>
           </td>
-          <td class="border border-gray-400 px-4 py-2"><%= task.due_date %></td>
+          <td class="border border-gray-400 px-4 py-2">
+          <span class="<%= task.is_completed ? 'line-through text-gray-400' : '' %>">
+          <%= task.due_date.strftime("%B %d, %Y ") %>
+        </span>
+        </td>
           <td class="border border-gray-400 px-4 py-2 ">
             <%= form_with model: task, method: :patch, url: today_task_completed_category_task_path(task.category, task) do |f| %>
               <div class="flex items-center justify-center">
@@ -35,8 +39,8 @@
           </td>
           <td class="border border-gray-400 px-4 py-2 ">
             <div class='flex items-center justify-center text-gray-400'>
-              <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
-              <%= link_to 'Show', category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+            <%= link_to 'Show', category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
+            <%= link_to 'Edit', edit_category_task_path(task.category, task), class: 'hover:underline hover:text-gray-600 mr-2' %>
               <%= button_to 'Delete', delete_task_today_category_task_path(task.category, task), method: :delete, data: { turbo_confirm: 'Are you sure you want to delete this task?' }, class: 'hover:text-gray-600 hover:underline' %>
             </div>
           </td>
@@ -52,6 +56,18 @@
     <% end %>
   </tbody>
 </table>
+<div class='flex items-center justify-between w-full mb-4'>
+  <p class='text-gray-400 text-sm'>
+    <span class='text-gray-500 text-lg font-semibold'><%=@tasks.count %></span>
+    task left
+  </p>
+  <div class='flex items-center justify-center gap-4'>
+    <%= link_to 'All', tasks_today_path, class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
+    <%= link_to 'Active', today_active_path, class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
+    <%= link_to 'Completed', today_completed_path, class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
+  </div>
+  <%= button_to 'Clear Completed', today_clear_completed_path, method: :delete, data: { turbo_confirm: "Are you sure you want delete all Completed Task?" },class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
+</div>
 <p class='self-start'>
   <%= link_to 'Back to Categories', categories_path, class: 'bg-gray-200 text-gray-600 text-sm font-bold py-2 px-4 rounded-md' %>
 </p>

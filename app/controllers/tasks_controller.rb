@@ -60,8 +60,29 @@ class TasksController < ApplicationController
   end
   def today
     @tasks = current_user.tasks.where(due_date: Date.today)
-    @categories = current_user.categories
   end
+
+  def active
+    @tasks = current_user.tasks.where(due_date: Date.today, is_completed: false)
+    render 'today'
+  end
+
+  def completed
+    @tasks = current_user.tasks.where(due_date: Date.today, is_completed: true)
+    render 'today'
+  end
+
+  def clear_completed
+    if current_user.tasks.where(due_date: Date.today, is_completed: true).count > 0
+      @tasks = current_user.tasks.where(due_date: Date.today, is_completed: true).destroy_all
+      flash[:notice] = 'Completed tasks cleared successfully.'
+    else
+      flash[:notice] = 'No completed tasks to clear.'
+    end
+    redirect_to tasks_today_path
+  end
+
+
   def delete_task_today
     @task.destroy
     flash[:notice] = 'Task was Deleted successfully.'
