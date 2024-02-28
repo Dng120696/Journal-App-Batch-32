@@ -1,16 +1,16 @@
 
-<div class = "w-[clamp(300px,90%,400px)] mx-auto text-center shadow-[0_0_10px_5px_rgba(0,0,0,0.15)] p-10 rounded-lg">
-    <h2>Log in</h2>
+<div class = "w-[clamp(300px,90%,400px)] mx-auto  shadow-[0_0_10px_5px_rgba(0,0,0,0.15)] p-10 rounded-lg">
+    <h2 class = 'text-3xl font-bold mb-4 text-center'>Log in</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email",class: " w-full" %>
+        <%= f.label :email , class: 'font-semibold '%><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email",class: " w-full my-2 font-normal text-sm" %>
       </div>
 
       <div class="field">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "current-password",class: " w-full"  %>
+        <%= f.label :password , class: 'font-semibold '%><br />
+        <%= f.password_field :password, autocomplete: "current-password",class: " w-full my-2 font-normal text-sm"  %>
       </div>
 
       <% if devise_mapping.rememberable? %>
@@ -21,8 +21,10 @@
       <% end %>
 
       <div class="actions">
-        <%= f.submit "Log in" %>
+        <%= f.submit "Log in" ,class: 'bg-gray-800 text-gray-50  w-full py-2 rounded-md font-semibold text-xl mt-4'%>
       </div>
     <% end %>
+    <div class = 'w-full'>
     <%= render "devise/shared/links" %>
+    </div>
    </div>

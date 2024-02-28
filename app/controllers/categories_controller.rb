@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_category, only: [:show,:edit,:update,:destroy,:delete_all_tasks]
   def new
-    @category = Category.new
+    @category = current_user.categories.new
   end
   def index
     @categories = current_user.categories
@@ -11,14 +11,20 @@ class CategoriesController < ApplicationController
   def edit; end
 
   def update
-    if @category.update(params.require(:category).permit(:name))
+    old_category_attr = @category.attributes
+    if @category.update(category_params)
+      if old_category_attr != @category.attributes
+         flash[:notice] = 'Category was updated successfully.'
+      else
+        flash[:notice] = 'No Changes were made.'
+      end
         redirect_to categories_path
     else
         redirect_to 'edit'
     end
   end
   def create
-    @category = current_user.categories.new(params.require(:category).permit(:name))
+    @category = current_user.categories.new(category_params)
     if @category.save
       flash[:notice] = 'Category was created successfully.'
       redirect_to categories_path
@@ -45,6 +51,9 @@ class CategoriesController < ApplicationController
 
   private
 
+  def category_params
+    params.require(:category).permit(:name)
+  end
   def find_category
     @category = current_user.categories.find(params[:id])
   end

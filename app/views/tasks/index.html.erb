@@ -1,4 +1,4 @@
-<h1 class="text-2xl font-bold mb-4">All Tasks</h1>
+<h1 class="text-2xl font-bold mb-4">Category Tasks</h1>
 <table class="border-collapse w-full mb-4">
   <thead>
     <tr>
@@ -29,7 +29,7 @@
         </span>
         </td>
           <td class="border border-gray-400 px-4 py-2 ">
-            <%= form_with model: task, method: :patch, url: toggle_task_completed_category_task_path(task.category, task) do |f| %>
+            <%= form_with model: task, method: :patch, url: category_task_completed_category_task_path(@category, task) do |f| %>
               <div class="flex items-center justify-center">
                 <%= f.check_box :is_completed, onchange: "this.form.submit()", class: 'w-5 h-5' %>
                 <%= f.submit '', class: 'hidden' %>

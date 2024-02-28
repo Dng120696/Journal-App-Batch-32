@@ -1,25 +1,25 @@
 Rails.application.routes.draw do
   root "categories#index"
-  get 'pages/user'
+
   devise_for :users, controllers: { sessions: 'users/sessions' }
 
   resources :categories do
     resources :tasks do
-      patch 'toggle_completed', on: :member
-      patch 'today_task_completed', on: :member
-      patch 'toggle_task_completed', on: :member
+
+      patch 'task_today_completed', on: :member
+      patch 'category_task_completed', on: :member
       delete 'delete_task_today', on: :member
-      delete 'delete_completed_task', on: :member
-      get 'active', on: :collection, action: :active_tasks
-      get 'completed', on: :collection, action: :completed_tasks
+      delete 'delete_completed_task', on: :member , action: :clear_completed_category_task
+      get 'active', on: :collection, action: :active_category_tasks
+      get 'completed', on: :collection, action: :completed_category_tasks
     end
     delete 'delete_all_tasks', on: :member
   end
 
   get '/tasks/today', to: 'tasks#today'
-  get 'tasks/today/active', to: 'tasks#active', as: 'today_active'
-  get 'tasks/today/completed', to: 'tasks#completed', as: 'today_completed'
-  delete 'tasks/today/clear_completed', to: 'tasks#clear_completed', as: 'today_clear_completed'
+  get 'tasks/today/active', to: 'tasks#active_today', as: 'today_active'
+  get 'tasks/today/completed', to: 'tasks#completed_today', as: 'today_completed'
+  delete 'tasks/today/clear_completed', to: 'tasks#clear_completed_today', as: 'today_clear_completed'
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
