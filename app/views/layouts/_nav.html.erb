@@ -6,8 +6,10 @@
  <div>
 
   <% if user_signed_in? %>
-
-        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, data:{turbo_method: :delete} %>
+      <div class = 'flex items-center gap-4'>
+        <h1><%= link_to current_user.email.split('@').first, edit_user_registration_path %></h1>
+        <%= link_to raw('<i class="fa-solid fa-right-from-bracket"></i>'), destroy_user_session_path, method: :delete, data:{turbo_method: :delete} ,class:'text-2xl' %>
+      </div>
     <%else%>
     <div class = 'flex items-center gap-6 text-xl'>
     <%= link_to "Sign In",new_user_session_path %>
