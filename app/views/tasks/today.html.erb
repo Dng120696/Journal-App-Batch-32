@@ -9,7 +9,7 @@
       <th class="border border-gray-400 px-4 py-2">Actions</th>
     </tr>
   </thead>
-  <tbody class='text-center'>
+  <tbody class='text-center text-sm'>
     <% if @tasks.any? %>
       <% @tasks.order(:id).each do |task| %>
         <tr>
@@ -69,5 +69,5 @@
   <%= button_to 'Clear Completed', today_clear_completed_path, method: :delete, data: { turbo_confirm: "Are you sure you want delete all Completed Task?" },class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
 </div>
 <p class='self-start'>
-  <%= link_to 'Back to Categories', categories_path, class: 'bg-gray-200 text-gray-600 text-sm font-bold py-2 px-4 rounded-md' %>
+  <%= link_to 'Back to Categories', categories_path,  class: 'bg-gray-200 rounded-sm font-semibold py-2 px-8 border-[1px] cursor-pointer' %>
 </p>

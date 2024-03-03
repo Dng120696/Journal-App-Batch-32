@@ -20,7 +20,7 @@
     </p>
   <div class = 'flex items-center justify-between'>
     <div>
-      <%= link_to 'Back to Categories', categories_path, class: 'text-sm py-2 px-4 bg-gray-200 text-gray-500 rounded-md font-semibold hover:cursor-pointer hover:bg-gray-300 hover:text-gray-800' %>
+      <%= link_to 'Back to Categories', categories_path,  class: 'bg-gray-200 rounded-sm font-semibold py-2 px-6 border-[1px] cursor-pointer text-sm text-gray-700' %>
       </div>
     <div class = 'flex items-center justify-between gap-4'>
       <%= render 'shared/edit-page',url: edit_category_path, obj: @category%>

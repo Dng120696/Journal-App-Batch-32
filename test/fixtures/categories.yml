@@ -2,8 +2,8 @@
 
 category_one:
   name: Category One
-  user: user_one
-
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_one) %>
 category_two:
   name: Category Two
-  user: user_two
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_two) %>
+#
