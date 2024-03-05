@@ -14,7 +14,12 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    if @category.nil?
+      redirect_to categories_path,alert: 'Post not found!'
+    end
+
+  end
   def edit; end
 
   def update
@@ -27,7 +32,7 @@ class CategoriesController < ApplicationController
       end
         redirect_to categories_path
     else
-        redirect_to 'edit'
+        redirect_to edit_category_path(@category)
     end
   end
   def create

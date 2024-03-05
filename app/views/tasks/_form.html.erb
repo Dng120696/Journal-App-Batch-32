@@ -1,7 +1,8 @@
 <section class = 'shadow-[0_0_1rem_5px_rgba(0,0,0,0.15)] w-[clamp(300px,90%,400px)] px-6 py-8 '>
   <h1 class="' text-3xl text-center font-bold mb-4 ">Task Form</h1>
   <%= render 'shared/error-messages',obj: @task%>
-<%= form_with(model: [@category, @task], local: true, data: { turbo: false }) do |f| %>
+  <%= form_with(model: [@category, @task], local: true, data: { turbo: false }) do |f| %>
+
   <p>
     <span>
       <%= f.label :title, "Title",class: 'text-md font-semibold mb-2' %>

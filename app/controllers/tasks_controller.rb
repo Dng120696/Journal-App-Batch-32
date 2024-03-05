@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :find_category_task, only: [:task_today_completed,:category_task_completed, :edit,:delete_task_today]
-  before_action :find_category, only: [:create,:new,:index,:active_category_tasks,:completed_category_tasks,:clear_completed_category_task]
+  before_action :find_category, only: [:create,:new,:index,:update,:active_category_tasks,:completed_category_tasks,:clear_completed_category_task]
 
   def new
     @task = @category.tasks.new
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
     end
   end
   def update
-    @task = current_user.tasks.find(params[:id])
+    @task = @category.tasks.find(params[:id])
     old_task_attr = @task.attributes
     if @task.update(task_params)
       if @task.attributes != old_task_attr

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+task_one:
+  title: model testing
+  description: MyText
+  due_date: 2024-03-05
+  category: category_one
+  user: user_one
+
+task_two:
+  title: system testing
+  description: MyText
+  due_date: 2024-03-05
+  category: category_two
+  user: user_one

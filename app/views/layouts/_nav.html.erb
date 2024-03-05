@@ -1,24 +1,24 @@
- <header class ='bg-gray-800 text-white text-2xl font-bold'>
- <div class = " flex items-center justify-between py-4 w-[clamp(300px,90%,1200px)] mx-auto">
- <h1><%=link_to 'Journal App',categories_path%></h1>
+<header class ='bg-gray-800 text-white text-2xl font-bold'>
+<div class = " flex items-center justify-between py-4 w-[clamp(300px,90%,1200px)] mx-auto">
+<h1><%=link_to 'Journal App',categories_path%></h1>
 
 
- <div>
+<div>
 
-  <% if user_signed_in? %>
-      <div class = 'flex items-center gap-4'>
-        <h1><%= link_to current_user.email.split('@').first, edit_user_registration_path %></h1>
-        <%= link_to raw('<i class="fa-solid fa-right-from-bracket"></i>'), destroy_user_session_path, method: :delete, data:{turbo_method: :delete} ,class:'text-2xl' %>
-      </div>
-    <%else%>
-    <div class = 'flex items-center gap-6 text-xl'>
-    <%= link_to "Sign In",new_user_session_path %>
-    <%= link_to "Sign Up", new_user_registration_path %>
+ <% if user_signed_in? %>
+     <div class = 'flex items-center gap-4'>
+       <h1><%= link_to current_user.email.split('@').first, edit_user_registration_path %></h1>
+       <%= link_to raw('<i class="fa-solid fa-right-from-bracket"></i>'), destroy_user_session_path, method: :delete, data:{turbo_method: :delete} ,class:'text-2xl' %>
+     </div>
+   <%else%>
+   <div class = 'flex items-center gap-6 text-xl'>
+   <%= link_to "Sign In",new_user_session_path %>
+   <%= link_to "Sign Up", new_user_registration_path %>
 
-    </div>
+   </div>
 
-  <%end%>
- </div>
- </div>
+ <%end%>
+</div>
+</div>
 
- </header>
+</header>
