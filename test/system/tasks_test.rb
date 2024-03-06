@@ -15,7 +15,7 @@ class CategoriesTest < ApplicationSystemTestCase
 
     assert_text "Signed in successfully.",wait: 10
   end
-  test "clicking new task to selected category and create new Task and redirect to the all the task of that category" do
+  test "Clicking 'New Task' within the chosen category will allow you to create a new task. Upon creation, it will redirect you to the list of tasks within that category" do
     within(".category-#{@category.id}") do
       click_link "New Task"
     end
@@ -30,7 +30,7 @@ class CategoriesTest < ApplicationSystemTestCase
     assert_text "Task was created successfully."
 
   end
-  test "edit and update category name" do
+  test "edit and update selected task" do
     within(".task-link-#{@task.id}") do
     find(:css, 'a i.fa-solid.fa-pen').click
   end
@@ -44,7 +44,7 @@ class CategoriesTest < ApplicationSystemTestCase
     assert_text 'Task was updated successfully.',wait: 10
 
   end
-  test "delete task within category" do
+  test "delete the selected task within category" do
     within(".task-link-#{@task.id}") do
     accept_confirm do
       find(:css, 'form button i.fa-solid.fa-trash-can').click
@@ -55,4 +55,6 @@ class CategoriesTest < ApplicationSystemTestCase
     assert_text 'Task was Deleted successfully.',wait: 10
 
   end
+
+
 end
