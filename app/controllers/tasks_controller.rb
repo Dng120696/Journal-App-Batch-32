@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :find_category_task, only: [:task_today_completed,:category_task_completed, :edit,:delete_task_today]
   before_action :find_category, only: [:create,:new,:index,:update,:active_category_tasks,:completed_category_tasks,:clear_completed_category_task]
-
+  rescue_from ActiveRecord::RecordNotFound, with: :task_not_found
   def new
     @task = @category.tasks.new
   end
@@ -123,4 +123,10 @@ class TasksController < ApplicationController
   def task_completed_params
     params.require(:task).permit(:is_completed)
   end
+  def task_not_found
+    # Redirect or render a view with a 404 error message
+    render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
+
+
 end

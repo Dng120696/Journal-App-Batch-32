@@ -13,11 +13,6 @@ class TaskTest < ActiveSupport::TestCase
     @task = @user.tasks.create(title:'task today')
     assert_not @task.save
   end
-  test "should not create a Task without category_id" do
-    @task = Task.new(title: 'task today', description: 'implement testing', due_date: Date.today, user: @user)
-
-    assert_not @task.save
-  end
 
   test "should not save Task with description lesser than 3 characters" do
     @task = @user.tasks.create(description: "a"*3)

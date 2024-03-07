@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_category, only: [:show,:edit,:update,:destroy,:delete_all_tasks]
+  rescue_from ActiveRecord::RecordNotFound, with: :category_not_found
+
   def new
     @category = current_user.categories.new
   end
@@ -69,4 +71,10 @@ class CategoriesController < ApplicationController
   def find_category
     @category = current_user.categories.find(params[:id])
   end
+  def category_not_found
+    # Redirect or render a view with a 404 error message
+    render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
+
+
 end
