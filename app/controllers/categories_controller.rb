@@ -8,9 +8,10 @@ class CategoriesController < ApplicationController
   end
   def index
     search_params = params[:search]
+
     @categories = current_user.categories
     if search_params.present?
-      @search_categories = @categories.select { |category| category.name.downcase.include?(search_params) }
+      @search_categories = @categories.select { |category| category.name.include?(search_params) }
     else
       @search_categories = @categories
     end
