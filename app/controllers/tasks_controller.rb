@@ -39,14 +39,12 @@ class TasksController < ApplicationController
     @tasks = @category.tasks
     @tasks = @tasks.where(is_completed: true) if params[:completed]
     @tasks = @tasks.where(is_completed: false) if params[:active]
-
-
   end
 
   def destroy
     @task = current_user.tasks.find(params[:id])
     @task.destroy
-    flash[:notice] = 'Task was Deleted successfully.'
+    flash[:alert] = 'Task was Deleted successfully.'
     redirect_to categories_path
 
   end
@@ -62,7 +60,7 @@ class TasksController < ApplicationController
   def clear_completed_category_task
     if @category.tasks.where(is_completed:true).count > 0
       @category.tasks.where(is_completed:true).destroy_all
-    flash[:notice] = 'Task was Deleted successfully.'
+    flash[:alert] = 'Task was Deleted successfully.'
     else
       flash[:notice] = 'No Task Is Completed.'
     end
@@ -79,7 +77,7 @@ class TasksController < ApplicationController
 
   def delete_task_today
     @task.destroy
-    flash[:notice] = 'Task was Deleted successfully.'
+    flash[:alert] = 'Task was Deleted successfully.'
     redirect_to categories_path
   end
 
@@ -96,7 +94,7 @@ class TasksController < ApplicationController
   def clear_completed_today
     if current_user.tasks.where(due_date: Date.today, is_completed: true).count > 0
       @tasks = current_user.tasks.where(due_date: Date.today, is_completed: true).destroy_all
-      flash[:notice] = 'Completed tasks cleared successfully.'
+      flash[:alert] = 'Completed tasks cleared successfully.'
     else
       flash[:notice] = 'No completed tasks to clear.'
     end

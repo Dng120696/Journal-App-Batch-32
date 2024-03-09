@@ -19,7 +19,7 @@ class CategoriesController < ApplicationController
 
   def show
     if @category.nil?
-      redirect_to categories_path,alert: 'Post not found!'
+      redirect_to categories_path,alert: 'Categories not found!'
     end
 
   end
@@ -49,14 +49,14 @@ class CategoriesController < ApplicationController
   end
   def destroy
     @category.destroy
-    flash[:notice] = 'Category was deleted successfully.'
+    flash[:alert] = 'Category was deleted successfully.'
     redirect_to categories_path
   end
 
   def delete_all_tasks
     if @category.tasks.count > 0
     @category.tasks.destroy_all
-    flash[:notice] = 'All tasks were deleted successfully.'
+    flash[:alert] = 'All tasks were deleted successfully.'
   else
     flash[:notice] = 'No tasks to be deleted.'
   end
