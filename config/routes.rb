@@ -1,12 +1,9 @@
 Rails.application.routes.draw do
-
   root "pages#home"
-
-  devise_for :users, controllers: { sessions: 'users/sessions' }
+  devise_for :users
 
   resources :categories do
     resources :tasks do
-
       patch 'task_today_completed', on: :member
       patch 'category_task_completed', on: :member
       delete 'delete_task_today', on: :member
@@ -22,6 +19,7 @@ Rails.application.routes.draw do
   get 'tasks/today/completed', to: 'tasks#completed_today', as: 'today_completed'
   delete 'tasks/today/clear_completed', to: 'tasks#clear_completed_today', as: 'today_clear_completed'
 
+  match "*path", to: "application#render_404", via: :all
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -31,8 +29,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
-  match "*path", to: "application#render_404", via: :all
+
 end
