@@ -69,3 +69,4 @@ end
 
 gem "tailwindcss-rails", "~> 2.3"
 gem "webdriver"
+gem 'will_paginate', '~> 4.0'

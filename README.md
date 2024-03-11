@@ -31,3 +31,62 @@ The **Journal App** is a comprehensive task and category management platform des
 
 - **Filtering Today's Tasks:** Users can filter tasks scheduled for today based on their status: all tasks, active (incomplete) tasks, and completed tasks. Additionally, there's a feature to clear all completed tasks, aiding in maintaining a focused and uncluttered view of daily objectives.
 - **Category Search:** A search functionality within the categories section allows users to quickly find specific categories by name, streamlining the management and access to associated tasks.
+- **Category Pagination:** Category pagination offers users a seamless browsing experience by organizing categories into easily navigable pages. By presenting categories in manageable chunks, users can swiftly explore without feeling overwhelmed. This refined feature streamlines navigation, ensuring users effortlessly discover relevant content while maintaining clarity and efficiency. With intuitive pagination controls, users can swiftly locate desired categories, enhancing overall usability and satisfaction.
+
+## **Live Demo**
+
+Check out the live demo of the app in the link below:
+
+[Journal App](https://mysite-pldf.onrender.com)
+
+## **Getting Started**
+
+### **Prerequisites**
+
+The setups steps expect the Builds listed above to be installed on the system
+
+### **Instructions**
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+- Clone the repository and navigate to main app directory for Ubunto
+
+```bash
+git clone git@github.com:Dng120696/Journal-App-Batch-32.git
+cd Journal-App-Batch-32
+```
+
+- Clone the repository and navigate to main app directory for Windows
+
+```bash
+git clone https://github.com/Dng120696/Journal-App-Batch-32.git
+cd Journal-App-Batch-32
+```
+
+- Install libraries and dependencies
+
+```bash
+bundle install
+```
+
+- Initialize the database
+
+```bash
+rails db:create
+rails db:migrate
+```
+
+- Run the server
+
+```bash
+./bin/dev
+```
+
+## **System dependencies**
+
+### **Gems**
+
+- Devise 4.8.1
+- tailwindcss-rails 2.3
+- webdriver
+- will_paginate 4.0

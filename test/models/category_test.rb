@@ -15,7 +15,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not @category.save
   end
 
-  test "should not save Category with name longer than 20 characters" do
+  test "should not save Category with name longer than 50 characters" do
     @category = @user.categories.new(name: "a"*51)
     assert_not @category.save
   end

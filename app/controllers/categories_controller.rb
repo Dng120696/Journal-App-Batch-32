@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
+
   before_action :find_category, only: [:show,:edit,:update,:destroy,:delete_all_tasks]
   rescue_from ActiveRecord::RecordNotFound, with: :category_not_found
 
@@ -11,9 +11,9 @@ class CategoriesController < ApplicationController
 
     @categories = current_user.categories
     if search_params.present?
-      @search_categories = @categories.select { |category| category.name.include?(search_params) }
+      @search_categories = @categories.select { |category| category.name.include?(search_params) }.paginate(page:params[:page],per_page:4)
     else
-      @search_categories = @categories
+      @search_categories = @categories.paginate(page:params[:page],per_page:4)
     end
   end
 
@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
       if old_category_attr != @category.attributes
          flash[:notice] = 'Category was updated successfully.'
       else
-        flash[:notice] = 'No Changes were made.'
+        flash[:alert] = 'No Changes were made.'
       end
         redirect_to categories_path
     else
@@ -49,16 +49,16 @@ class CategoriesController < ApplicationController
   end
   def destroy
     @category.destroy
-    flash[:alert] = 'Category was deleted successfully.'
+    flash[:notice] = 'Category was deleted successfully.'
     redirect_to categories_path
   end
 
   def delete_all_tasks
     if @category.tasks.count > 0
     @category.tasks.destroy_all
-    flash[:alert] = 'All tasks were deleted successfully.'
+    flash[:notice] = 'All tasks were deleted successfully.'
   else
-    flash[:notice] = 'No tasks to be deleted.'
+    flash[:alert] = 'No tasks to be deleted.'
   end
 
   redirect_to categories_path

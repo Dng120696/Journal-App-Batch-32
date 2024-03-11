@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'categories_index' %>
+
 <div class='text-left w-full'>
 
 
@@ -73,3 +75,7 @@
 <% else %>
   <p class='text-gray-400 font-light text-xl border-[1px]  rounded-sm w-full border-gray-200 pb-2 h-[50vh] flex items-center justify-center'>No categories found.</p>
 <% end %>
+
+<div class="flickr_pagination">
+    <%= will_paginate @search_categories, :container => false %>
+  </div>

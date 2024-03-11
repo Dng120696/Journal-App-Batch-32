@@ -9,13 +9,13 @@
     <p  class = 'mb-2'>
       <strong>Created At: </strong>
       <span class = 'text-gray-500 text-md'>
-      <%= @category.created_at.strftime("%B %d, %Y ") %>
+      <%= formatted_date(@category.created_at) %>
       </span>
       </p>
     <p  class = 'mb-2'>
       <strong>Updated At: </strong>
       <span class = 'text-gray-500 text-md'>
-      <%= @category.updated_at.strftime("%B %d, %Y") %>
+      <%= formatted_date(@category.updated_at) %>
       </span>
     </p>
   <div class = 'flex items-center justify-between'>
