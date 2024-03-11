@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="flex items-center justify-center <%= task.is_completed ? 'line-through text-gray-400' : '' %> ">
-                  <%= task.due_date.strftime("%B %d, %Y") %>
+                  <%= formatted_date(task.due_date) %>
                 </div>
 
                 <div class='flex items-center justify-end gap-4 text-gray-400'>

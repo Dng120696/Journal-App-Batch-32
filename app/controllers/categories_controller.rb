@@ -11,9 +11,9 @@ class CategoriesController < ApplicationController
 
     @categories = current_user.categories
     if search_params.present?
-      @search_categories = @categories.select { |category| category.name.include?(search_params) }.paginate(page:params[:page],per_page:4)
+      @search_categories = @categories.where("LOWER(name) LIKE ?", "%#{search_params.downcase}%").paginate(page: params[:page], per_page: 4)
     else
-      @search_categories = @categories.paginate(page:params[:page],per_page:4)
+      @search_categories = @categories.paginate(page: params[:page], per_page: 4)
     end
   end
 
