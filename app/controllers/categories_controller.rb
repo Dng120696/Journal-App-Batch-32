@@ -18,10 +18,6 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    if @category.nil?
-      redirect_to categories_path,alert: 'Categories not found!'
-    end
-
   end
   def edit; end
 
