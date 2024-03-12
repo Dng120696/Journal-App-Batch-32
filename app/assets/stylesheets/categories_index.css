@@ -18,16 +18,15 @@
 }
 .flickr_pagination a {
   border: 1px solid #dddddd;
+  background: rgb(243 244 246);
   border-radius: 3px;
-  color: #0063dc;
+  color: rgb(75 85 99);
   font-weight: 500;
   text-decoration: none;
 }
 .flickr_pagination a:hover,
 .flickr_pagination a:focus {
-  border-color: #003366;
-  background: #0063dc;
-  color: white;
+  background: rgb(229, 231, 235);
 }
 .flickr_pagination .page_info {
   color: #aaaaaa;
