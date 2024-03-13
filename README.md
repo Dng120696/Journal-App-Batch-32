@@ -88,5 +88,4 @@ rails db:migrate
 
 - Devise 4.8.1
 - tailwindcss-rails 2.3
-- webdriver
 - will_paginate 4.0
