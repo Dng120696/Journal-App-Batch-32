@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       patch 'task_today_completed', on: :member
       patch 'category_task_completed', on: :member
       delete 'delete_task_today', on: :member
-      delete 'delete_completed_task', on: :member , action: :clear_completed_category_task
+      delete 'clear_completed_task', on: :member , action: :clear_completed_category_task
       get 'active', on: :collection, action: :active_category_tasks
       get 'completed', on: :collection, action: :completed_category_tasks
     end

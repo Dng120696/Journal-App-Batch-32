@@ -1,15 +1,25 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!
-  before_action :find_category_task, only: [:task_today_completed,:category_task_completed, :edit,:delete_task_today]
-  before_action :find_category, only: [:create,:new,:index,:update,:active_category_tasks,:completed_category_tasks,:clear_completed_category_task]
+  before_action :find_category_task, only: [:task_today_completed, :category_task_completed, :edit,:delete_task_today]
+  before_action :find_category, only: [:create, :new, :index, :update, :active_category_tasks, :completed_category_tasks, :clear_completed_category_task]
+
   rescue_from ActiveRecord::RecordNotFound, with: :task_not_found
+
+  def index
+    @tasks = @category.tasks
+    @tasks = @tasks.completed if params[:completed]
+    @tasks = @tasks.not_completed if params[:active]
+  end
+
   def new
     @task = @category.tasks.new
   end
+
   def show
     @task = current_user.tasks.find(params[:id])
   end
+
   def edit; end
+
   def create
     @task = @category.tasks.new(task_params)
     @task.user = current_user
@@ -20,11 +30,11 @@ class TasksController < ApplicationController
       render 'new'
     end
   end
+
   def update
     @task = @category.tasks.find(params[:id])
-    old_task_attr = @task.attributes
     if @task.update(task_params)
-      if @task.attributes != old_task_attr
+      if @task.previous_changes.present?
         flash[:notice] = 'Task was updated successfully.'
       else
         flash[:alert] = 'No changes were made.'
@@ -35,40 +45,38 @@ class TasksController < ApplicationController
     end
   end
 
-  def index
-    @tasks = @category.tasks
-    @tasks = @tasks.where(is_completed: true) if params[:completed]
-    @tasks = @tasks.where(is_completed: false) if params[:active]
-  end
 
   def destroy
     @task = current_user.tasks.find(params[:id])
     @task.destroy
     flash[:notice] = 'Task was Deleted successfully.'
     redirect_to categories_path
-
   end
+
   def active_category_tasks
-    @tasks = @category.tasks.where(is_completed: false)
+    @tasks = @category.tasks.not_completed
     render 'index'
   end
 
   def completed_category_tasks
-    @tasks = task_completed
+    @tasks = @category.tasks.completed
     render 'index'
   end
+
   def clear_completed_category_task
-    if task_completed.count > 0
-      task_completed.destroy_all
-    flash[:notice] = 'Task was Deleted successfully.'
+    if @category.tasks.completed.count > 0
+      @category.tasks.completed.destroy_all
+      flash[:notice] = 'Task was Deleted successfully.'
     else
       flash[:alert] = 'No Task Is Completed.'
     end
     redirect_to category_tasks_path
   end
+
   def today
-    @tasks = current_user.tasks.where(due_date: Date.today)
+    @tasks = current_user.tasks.today_task
   end
+
   def task_today_completed
     @task.update(task_completed_params)
       flash[:notice] = 'Task was updated successfully.'
@@ -82,18 +90,18 @@ class TasksController < ApplicationController
   end
 
   def active_today
-    @tasks = current_user.tasks.where(due_date: Date.today, is_completed: false)
+    @tasks = current_user.tasks.today_task_completed
     render 'today'
   end
 
   def completed_today
-    @tasks = current_user.tasks.where(due_date: Date.today, is_completed: true)
+    @tasks = current_user.tasks.today_task_not_completed
     render 'today'
   end
 
   def clear_completed_today
-    if current_user.tasks.where(due_date: Date.today, is_completed: true).count > 0
-      @tasks = current_user.tasks.where(due_date: Date.today, is_completed: true).destroy_all
+    if current_user.tasks.today_task_completed.count > 0
+      @tasks = current_user.tasks.today_task_not_completed.destroy_all
       flash[:notice] = 'Completed tasks cleared successfully.'
     else
       flash[:alert] = 'No completed tasks to clear.'
@@ -107,12 +115,11 @@ class TasksController < ApplicationController
   end
 
   private
-  def tasks_completed
-    @category.tasks.where(is_completed:true)
-  end
+
   def find_category
     @category = current_user.categories.find(params[:category_id])
   end
+
   def find_category_task
     find_category
    @task = @category.tasks.find(params[:id])
@@ -121,9 +128,11 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:title, :description, :due_date,:is_completed)
   end
+
   def task_completed_params
     params.require(:task).permit(:is_completed)
   end
+
   def task_not_found
     # Redirect or render a view with a 404 error message
     render file: "#{Rails.root}/public/404.html", status: :not_found

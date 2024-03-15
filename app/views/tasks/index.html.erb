@@ -68,7 +68,7 @@
     <%= link_to 'Active', active_category_tasks_path(@category), class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
     <%= link_to 'Completed', completed_category_tasks_path(@category), class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
   </div>
-  <%= button_to 'Clear Completed', delete_completed_task_category_task_path(@category,@tasks), method: :delete, data: { turbo_confirm: "Are you sure you want delete all Completed Task?" },class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
+  <%= button_to 'Clear Completed', clear_completed_task_category_task_path(@category,@tasks), method: :delete, data: { turbo_confirm: "Are you sure you want delete all Completed Task?" },class: 'text-gray-500 text-sm font-bold rounded-md hover:text-gray-700 hover:underline' %>
 </div>
 <p class='self-start'>
   <%= link_to 'Back to Categories', categories_path, class: 'bg-gray-200 rounded-sm font-semibold py-2 px-8 border-[1px] cursor-pointer' %>
