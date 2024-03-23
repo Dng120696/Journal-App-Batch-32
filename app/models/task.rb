@@ -11,6 +11,6 @@ class Task < ApplicationRecord
   scope :not_completed, -> { where(is_completed: false) }
   scope :today_task, -> { where(due_date: Date.today) }
   scope :today_task_completed, -> { where(due_date: Date.today, is_completed: true) }
-  scope :today_task_not_completeds, -> { where(due_date: Date.today, is_completed: false) }
+  scope :today_task_not_completed, -> { where(due_date: Date.today, is_completed: false) }
 
 end
